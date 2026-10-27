@@ -1,19 +1,21 @@
-package com.cedaniel200.automatizacion.task;
+package com.cedaniel200.automatizacion.tasks;
 
 import com.cedaniel200.automatizacion.exceptions.AuthenticationError;
-import com.cedaniel200.automatizacion.model.Credentials;
+import com.cedaniel200.automatizacion.models.Credentials;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.screenplay.actions.Open;
+import net.serenitybdd.annotations.Step;
+import net.serenitybdd.screenplay.waits.WaitUntil;
 
 import java.time.Duration;
 
 import static com.cedaniel200.automatizacion.exceptions.AuthenticationError.MESSAGE_FAILED_AUTHENTICATION;
-import static com.cedaniel200.automatizacion.userinterface.LoginPage.*;
-import static com.cedaniel200.automatizacion.userinterface.MenuPage.LOG_IN_MENU;
-import static com.cedaniel200.automatizacion.userinterface.MenuPage.LOG_OUT_MENU;
+import static com.cedaniel200.automatizacion.userinterfaces.LoginPage.*;
+import static com.cedaniel200.automatizacion.userinterfaces.MenuPage.LOG_IN_MENU;
+import static com.cedaniel200.automatizacion.userinterfaces.MenuPage.LOG_OUT_MENU;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
@@ -32,6 +34,7 @@ public class Authenticate implements Task {
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
                 Click.on(LOG_IN_MENU),
+                WaitUntil.the(USERNAME, isVisible()).forNoMoreThan(Duration.ofSeconds(10)),
                 Enter.theValue(credentials.getUsername()).into(USERNAME),
                 Enter.theValue(credentials.getPassword()).into(PASSWORD),
                 Click.on(LOG_IN_BUTTON)

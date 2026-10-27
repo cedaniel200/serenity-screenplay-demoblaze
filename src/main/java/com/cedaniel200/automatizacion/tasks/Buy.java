@@ -1,16 +1,16 @@
-package com.cedaniel200.automatizacion.task;
+package com.cedaniel200.automatizacion.tasks;
 
-import com.cedaniel200.automatizacion.model.Purchaser;
+import com.cedaniel200.automatizacion.models.Purchaser;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
-import static com.cedaniel200.automatizacion.model.Purchaser.PURCHASER_INFORMATION;
-import static com.cedaniel200.automatizacion.userinterface.CartPage.PLACE_ORDER_BUTTON;
-import static com.cedaniel200.automatizacion.userinterface.MenuPage.CART_MENU;
-import static com.cedaniel200.automatizacion.userinterface.PlaceOrderPage.*;
+import static com.cedaniel200.automatizacion.models.Purchaser.PURCHASER_INFORMATION;
+import static com.cedaniel200.automatizacion.userinterfaces.CartPage.PLACE_ORDER_BUTTON;
+import static com.cedaniel200.automatizacion.userinterfaces.MenuPage.CART_MENU;
+import static com.cedaniel200.automatizacion.userinterfaces.PlaceOrderPage.*;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 

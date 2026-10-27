@@ -4,7 +4,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.annotations.Subject;
 
-import static com.cedaniel200.automatizacion.userinterface.PlaceOrderPage.MESSAGE_SUCCESS_PURCHASE;
+import static com.cedaniel200.automatizacion.userinterfaces.PlaceOrderPage.MESSAGE_SUCCESS_PURCHASE;
 
 @Subject("The Purchase Is Successful")
 public class PurchaseSuccessful implements Question<Boolean> {
