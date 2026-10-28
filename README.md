@@ -10,7 +10,7 @@ Flujo de compra completo contra [demoblaze.com](https://www.demoblaze.com): aute
 de productos, carrito, pago y verificación del mensaje de confirmación. Es la
 [plantilla](https://github.com/cedaniel200/serenity-screenplay-template) con un caso real implementado.
 
-## Qué demuestra
+## Qué incluye
 
 - **Screenplay completo**: `tasks`, `interactions`, `questions` y `userinterfaces` sobre un flujo de
   negocio con varias pantallas.
