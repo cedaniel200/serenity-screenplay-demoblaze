@@ -1,4 +1,4 @@
-package com.cedaniel200.automatizacion.interaction;
+package com.cedaniel200.automatizacion.interactions;
 
 import net.serenitybdd.screenplay.actions.DriverTask;
 import org.openqa.selenium.WebDriver;

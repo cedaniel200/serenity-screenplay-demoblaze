@@ -1,19 +1,19 @@
-package com.cedaniel200.automatizacion.task;
+package com.cedaniel200.automatizacion.tasks;
 
-import com.cedaniel200.automatizacion.model.Product;
+import com.cedaniel200.automatizacion.models.Product;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Switch;
 import net.serenitybdd.screenplay.waits.WaitUntil;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.Step;
 
 import java.time.Duration;
 
-import static com.cedaniel200.automatizacion.userinterface.DemoBlazeHomePage.CATEGORY_MENU;
-import static com.cedaniel200.automatizacion.userinterface.DemoBlazeHomePage.PRODUCT;
-import static com.cedaniel200.automatizacion.userinterface.MenuPage.HOME_MENU;
-import static com.cedaniel200.automatizacion.userinterface.ProductPage.ADD_TO_CART_BUTTON;
+import static com.cedaniel200.automatizacion.userinterfaces.DemoBlazeHomePage.CATEGORY_MENU;
+import static com.cedaniel200.automatizacion.userinterfaces.DemoBlazeHomePage.PRODUCT;
+import static com.cedaniel200.automatizacion.userinterfaces.MenuPage.HOME_MENU;
+import static com.cedaniel200.automatizacion.userinterfaces.ProductPage.ADD_TO_CART_BUTTON;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isClickable;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
@@ -40,7 +40,7 @@ public class Add implements Task {
                 Click.on(PRODUCT.of(product.getName())),
                 Click.on(ADD_TO_CART_BUTTON),
                 WaitUntil.the(alertIsPresent()).forNoMoreThan(Duration.ofSeconds(10)),
-                Switch.toAlert()
+                Switch.toAlert().andAccept()
         );
     }
 

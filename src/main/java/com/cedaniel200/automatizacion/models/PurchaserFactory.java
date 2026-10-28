@@ -1,4 +1,4 @@
-package com.cedaniel200.automatizacion.model;
+package com.cedaniel200.automatizacion.models;
 
 public class PurchaserFactory {
 

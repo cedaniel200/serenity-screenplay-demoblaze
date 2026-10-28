@@ -1,91 +1,95 @@
-# Descripción
+# Serenity BDD + Screenplay — Demo Demoblaze
 
-Página https://www.demoblaze.com/
+![Java](https://img.shields.io/badge/Java-17-blue)
+![Serenity BDD](https://img.shields.io/badge/Serenity%20BDD-5.4.1-green)
+![Cucumber](https://img.shields.io/badge/Cucumber-8.0.4-brightgreen)
+![Gradle](https://img.shields.io/badge/Gradle-9.8.2-darkgreen)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-## Detalles generales de la implementación
+Flujo de compra completo contra [demoblaze.com](https://www.demoblaze.com): autenticación, selección
+de productos, carrito, pago y verificación del mensaje de confirmación. Es la
+[plantilla](https://github.com/cedaniel200/serenity-screenplay-template) con un caso real implementado.
 
-Los tests usan tareas (tasks), interacciones (interactions), preguntas (questions), elementos de páginas (userinterface).
-La estructura completa del proyecto es la siguiente:
+## Qué incluye
 
-````
-+ exceptions
-    Clases que controlan las posibles excepciones técnicas y de negocios que se presentan durante la ejecución de pruebas
-+ model
-    Clases relacionadas con el modelo de dominio y sus respectivos builder cuando es necesario
-+ tasks
-    Clases que representan tareas que realiza el actor a nivel de proceso de negocio
-+ interactions
-    Clases que representan las interacciones directas con la interfaz de usuario
-+ userinterface
-    Page Objects y Page Elements. Mapean los objetos de la interfaz de usuario
-+ questions
-    Objetos usados para consultar acerca del estado de la aplicación
-+ util
-    Clases de utilidad
-+ runners
-    Clases que permiten correr los tests
-+ step definitions
-    Clases que mapean las líneas Gherkin a código java
-+ features
-    La representación de las historias en archivos cucumber
-````
+- **Screenplay completo**: `tasks`, `interactions`, `questions` y `userinterfaces` sobre un flujo de
+  negocio con varias pantallas.
+- **Un escenario de punta a punta**: iniciar sesión, agregar dos productos de categorías distintas,
+  completar el pago y comprobar el mensaje de éxito con una aserción.
+- **Esperas explícitas y manejo de alertas**: el sitio abre diálogos del navegador que hay que
+  aceptar; el flujo los trata como parte del guion.
+- **Lombok** para el modelo y un `PurchaserFactory` que construye los datos de compra.
 
-## Requerimientos
+## Requisitos
 
-Para correr el proyecto se necesita Java JDK 1.8 y Gradle preferiblemente con la versión 7.1.
+- **JDK 17**. El build fija un toolchain de Java 17.
+- **Un navegador instalado** (Chrome por defecto). El driver lo resuelve Selenium Manager.
+- **Conexión a internet**: el escenario se ejecuta contra un sitio público.
 
-Nota: Si bien se recomienda ejecutar con Java 8 podria correr con Java 11.
+## Cómo se ejecuta
 
-## Para correr el proyecto
+```sh
+./gradlew test
+./gradlew aggregate
+```
 
-Para ejecutar este proyecto en diferentes navegadores se debe seguir el siguiente orden de ejecución:
+El informe queda en `target/site/serenity/index.html`.
 
-    gradle clean 
-    gradle test -Dcontext=navegador -Dwebdriver.driver=driverAUtilizar
-    gradle aggregate
+Para ejecutarlo sin abrir ventana:
 
-Si desea ejecutar las pruebas especificando el ambiente (environment) agregue **-Denvironment=nombreAmbiente** ver el 
-archivo **serenity.conf** ubicado en **src/test/resources/** para modificar cualquier valor con respecto a los ambientes,
-por el momento se especifica el ambiente de desarrollo llamado **dev** y el de producción llamado **prod**.
+```sh
+./gradlew test -Dheadless.mode=true
+```
 
-Independiente de si es en un solo navegador o varios, se generará el reporte en la carpeta **/target/site/serenity/**
-abrir el archivo **index.html**
+La cuenta usada es la de demostración pública del sitio (`admin` / `admin`). No hay credenciales
+reales en el repositorio.
 
-Ejemplo:
+## Estructura
 
-    gradle clean 
-    gradle test -Dcontext=chrome -Dwebdriver.driver=chrome -Denvironment=dev
-    gradle test -Dcontext=firefox -Dwebdriver.driver=firefox -Denvironment=dev
-    gradle aggregate
+```text
+src/main/java/com/cedaniel200/automatizacion
+├── tasks/            # Authenticate, Add, Buy
+├── interactions/     # Resize
+├── questions/        # PurchaseSuccessful
+├── userinterfaces/   # LoginPage, DemoBlazeHomePage, ProductPage, CartPage, PlaceOrderPage, MenuPage
+├── models/           # Credentials, Product, Purchaser, PurchaserFactory
+└── exceptions/
 
+src/test
+├── java/.../runner/PurchaseTestSuite.java
+├── java/.../stepdefinitions/PurchaseStepDefinitions.java
+└── resources/
+    ├── features/purchase.feature
+    └── serenity.conf          # URL base y entornos
+```
 
-##Actores
+## Relación con la plantilla
 
-Para hacer uso del concepto de Soap Opera persona se describen los siguiente actores.
+Usa la estructura de [serenity-screenplay-template](https://github.com/cedaniel200/serenity-screenplay-template)
+con el paquete ya adaptado al proyecto (`com.cedaniel200.automatizacion`). Añade `models`, que la
+plantilla deja vacío a propósito.
 
-### Juan Perez
-#### Caracteristicas
-* Nombre Completo: Juan Perez
-* Registrado: Si
-* Nacionalidad: Colombia
-* Ciudad de Residencia: Medellin
-* Tarjeta de Credito
-  * Numero: 123456789
-  * Mes: 05
-  * Año: 25
+La configuración vive en `serenity.conf`, no en `serenity.properties`: define `webdriver.base.url`
+y los entornos `dev` y `prod`, este último con `headless.mode = true`.
 
-### Pedro Perez
-#### Caracteristicas
-* Nombre Completo: Pedro Perez
-* Registrado: Si
-* Nacionalidad: Colombia
-* Ciudad de Residencia: Medellin
-* Tarjeta de Credito
-  * Numero: 223456789
-  * Mes: 01
-  * Año: 22
+## Docker
 
-# Advertencia y/o Aclaraciones
+```sh
+docker compose up --abort-on-container-exit
+```
 
-Los datos de los actores se encuentran en una clase factory, esto se realiza de esta manera si se quisiera más adelante
-usar algun otro patron como DAO o Repository para acceder a los datos desde una Base de Datos o algun otro medio de persistencia
+El navegador corre en el servicio `chrome` (imagen oficial de Selenium); los tests le envían
+comandos por HTTP y no abren ninguna ventana en tu máquina. El informe queda en
+`./target/site/serenity/`.
+
+## Ten en cuenta
+
+- **Depende de un sitio de terceros.** Si Demoblaze cambia sus identificadores o su flujo, el
+  escenario se rompe. Los localizadores usan `id` y texto visible, que es lo más frágil del repo.
+- **Crea pedidos de prueba** en el sitio. No hay datos personales reales.
+- **`gradle.startParameter.continueOnFailure = true`**: Gradle sigue tras una tarea fallida. Está
+  heredado y puede enmascarar errores en ejecuciones locales.
+
+## Licencia
+
+[MIT](LICENSE) © Cesar Daniel

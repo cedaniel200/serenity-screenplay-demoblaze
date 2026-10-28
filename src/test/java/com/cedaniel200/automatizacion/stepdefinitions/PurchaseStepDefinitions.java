@@ -1,9 +1,9 @@
 package com.cedaniel200.automatizacion.stepdefinitions;
 
-import com.cedaniel200.automatizacion.interaction.Resize;
-import com.cedaniel200.automatizacion.model.Product;
-import com.cedaniel200.automatizacion.model.Purchaser;
-import com.cedaniel200.automatizacion.task.Add;
+import com.cedaniel200.automatizacion.interactions.Resize;
+import com.cedaniel200.automatizacion.models.Product;
+import com.cedaniel200.automatizacion.models.Purchaser;
+import com.cedaniel200.automatizacion.tasks.Add;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,11 +12,11 @@ import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 
-import static com.cedaniel200.automatizacion.model.Purchaser.PURCHASER_INFORMATION;
-import static com.cedaniel200.automatizacion.model.PurchaserFactory.createByName;
+import static com.cedaniel200.automatizacion.models.Purchaser.PURCHASER_INFORMATION;
+import static com.cedaniel200.automatizacion.models.PurchaserFactory.createByName;
 import static com.cedaniel200.automatizacion.questions.PurchaseSuccessful.thePurchaseIsSuccessful;
-import static com.cedaniel200.automatizacion.task.Authenticate.authenticate;
-import static com.cedaniel200.automatizacion.task.Buy.buy;
+import static com.cedaniel200.automatizacion.tasks.Authenticate.authenticate;
+import static com.cedaniel200.automatizacion.tasks.Buy.buy;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;

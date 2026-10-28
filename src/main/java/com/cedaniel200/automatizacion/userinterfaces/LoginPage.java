@@ -1,4 +1,4 @@
-package com.cedaniel200.automatizacion.userinterface;
+package com.cedaniel200.automatizacion.userinterfaces;
 
 import net.serenitybdd.screenplay.targets.Target;
 import org.openqa.selenium.By;
